@@ -1,5 +1,8 @@
-﻿namespace Singleton
+﻿using System;
+
+namespace Singleton
 {
+    [Serializable]
     public class Product
     {
         public string Name;

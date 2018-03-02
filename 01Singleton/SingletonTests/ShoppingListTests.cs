@@ -51,5 +51,42 @@ namespace SingletonTests
             Assert.IsTrue(shoppingListInstance1.Equals(shoppingListInstance2));
             shoppingListInstance1.DeleteInstance();
         }
+
+        [TestMethod]
+        public void TestSerializationThreadSafety()
+        {
+            var shoppingListInstance1 = ShoppingList.ShoppingListInstance;
+            var shoppingListInstance2 = ShoppingList.ShoppingListInstance;
+            var addProducts = new Task(() =>
+            {
+                shoppingListInstance1.AddProduct(new Product("PC", 4000));
+                shoppingListInstance1.AddProduct(new Product("TV", 7000));
+            });
+            var serialize = new Task(() =>
+            {
+                Program.Serialize(shoppingListInstance1);
+                shoppingListInstance1.DeleteInstance();
+            });
+            var deserialize = new Task(() =>
+            {
+                shoppingListInstance1.DeleteInstance();
+                shoppingListInstance2.DeleteInstance();
+                shoppingListInstance2.DeletaAllProducts();
+                shoppingListInstance2 = Program.Deserialize();
+                shoppingListInstance1 = ShoppingList.ShoppingListInstance;
+            });
+
+            addProducts.Start();
+            addProducts.Wait();
+            serialize.Start();
+            serialize.Wait();
+            deserialize.Start();
+            deserialize.Wait();
+
+            Assert.AreSame(shoppingListInstance1, shoppingListInstance2);
+            Assert.AreEqual(2, shoppingListInstance1.GetProductList().Count);
+            Assert.AreEqual(2, shoppingListInstance2.GetProductList().Count);
+            shoppingListInstance2.DeleteInstance();
+        }
     }
 }
