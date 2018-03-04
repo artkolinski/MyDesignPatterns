@@ -72,20 +72,19 @@ namespace SingletonTests
                 shoppingListInstance1.DeleteInstance();
                 shoppingListInstance2.DeleteInstance();
                 shoppingListInstance2.DeletaAllProducts();
-                shoppingListInstance2 = Program.Deserialize();
-                shoppingListInstance1 = ShoppingList.ShoppingListInstance;
+                Program.Deserialize();
             });
 
-            addProducts.Start();
-            addProducts.Wait();
             serialize.Start();
-            serialize.Wait();
+            addProducts.Start();
             deserialize.Start();
+
+            addProducts.Wait();
+            serialize.Wait();
             deserialize.Wait();
 
             Assert.AreSame(shoppingListInstance1, shoppingListInstance2);
-            Assert.AreEqual(2, shoppingListInstance1.GetProductList().Count);
-            Assert.AreEqual(2, shoppingListInstance2.GetProductList().Count);
+            Assert.AreEqual(shoppingListInstance2.GetProductList().Count, shoppingListInstance1.GetProductList().Count);
             shoppingListInstance2.DeleteInstance();
         }
     }
