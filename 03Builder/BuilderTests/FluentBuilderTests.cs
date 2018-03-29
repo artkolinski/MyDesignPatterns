@@ -33,6 +33,21 @@ namespace BuilderTests
         }
 
         [TestMethod]
+        public void GetValueByKeyCustomMethod()
+        {
+            var pm = new ProjectManager();
+            var small = pm.Construct(new SmallFlashlight());
+            Assert.AreEqual("Small Host", small.GetValueByKey("Host"));
+        }
+        [TestMethod]
+        public void GetWrongValueByKeyCustomMethod()
+        {
+            var pm = new ProjectManager();
+            var small = pm.Construct(new SmallFlashlight());
+            Assert.AreEqual("Not exist", small.GetValueByKey("WrongHost"));
+        }
+
+        [TestMethod]
         public void GetFlashligthtParts()
         {
             var flashlight = new Flashlight("Test");

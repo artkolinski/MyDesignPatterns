@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace FluentBuilder.Models
@@ -34,6 +35,26 @@ namespace FluentBuilder.Models
         public string GetFlashlightType()
         {
             return _flashlightType;
+        }
+
+        public string GetValueByKey(string key)
+        {
+            string value;
+            try
+            {
+                value = _parts.Find(ByKey(key)).Item2;
+            }
+            catch (NullReferenceException ex)
+            {
+                Debug.WriteLine(ex);
+                value = "Not exist";
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                value = ex.ToString();
+            }
+            return value;
         }
     }
 }
