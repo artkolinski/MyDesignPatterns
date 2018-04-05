@@ -36,6 +36,9 @@ namespace PrototypeTests
             AreNotSame(deepClone.Motherboard.Processor.Cooling, computer.Motherboard.Processor.Cooling);
             AreEqual("Corsair Extreme Cooler H115i", deepClone.Motherboard.Processor.Cooling.Model);
             AreEqual("Corsair Extreme Cooler H115i", computer.Motherboard.Processor.Cooling.Model);
+            deepClone.Motherboard.Processor.Cooling.Model = "Box";
+            AreEqual("Box", deepClone.Motherboard.Processor.Cooling.Model);
+            AreEqual("Corsair Extreme Cooler H115i", computer.Motherboard.Processor.Cooling.Model);
         }
         [TestMethod]
         public void ComputerShallowClone()
