@@ -17,13 +17,13 @@
             <TabItem Header="Budowanie">
                 <Grid Background="#FFE5E5E5">
                     <Button x:Name="AddBtn" Content="Dodaj" HorizontalAlignment="Left" Margin="175,96,0,0" VerticalAlignment="Top" Width="75" Click="AddBtn_Click"/>
-                    <ComboBox x:Name="comboCase" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,45,0,0"/>
-                    <ComboBox x:Name="comboMotherboards" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,94,0,0"/>
-                    <ComboBox x:Name="comboProcessor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,144,0,0"/>
-                    <ComboBox x:Name="comboProcessor_Copy" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,235,0,0"/>
+                    <ComboBox x:Name="comboCase" Text="TEST" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,45,0,0" Loaded="comboCase_Loaded"/>
+                    <ComboBox x:Name="comboMotherboards" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,94,0,0" Loaded="comboMotherboards_Loaded"/>
+                    <ComboBox x:Name="comboProcessor" ItemsSource="{Binding Path=Processors, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,144,0,0" SelectionChanged="comboProcessor_SelectionChanged" Loaded="comboProcessor_Loaded"/>
+                    <ComboBox x:Name="comboBuilder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,235,0,0" Loaded="comboBuilder_Loaded"/>
                     <Button x:Name="readSetBtn" Content="Wczytaj zestaw" HorizontalAlignment="Left" Margin="159,233,0,0" VerticalAlignment="Top" Width="105" Height="28"/>
-                    <GroupBox x:Name="groupBox" Header="Builder" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,208,0,0" Height="73" Width="282"/>
-                    <GroupBox x:Name="groupBox_Copy" Header="Prototyp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Height="158" Width="282"/>
+                    <GroupBox x:Name="groupBox" Header="Builder" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="109,196,0,0" Height="73" Width="282"/>
+                    <GroupBox x:Name="groupBox_Copy" Header="Prototyp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,8,0,0" Height="158" Width="282"/>
                     <Image x:Name="image" HorizontalAlignment="Left" Height="217" VerticalAlignment="Top" Width="217" Margin="294,-7,0,0" Source="img/Computer-PC-Free-PNG-Image.png"/>
                 </Grid>
             </TabItem>
