@@ -73,6 +73,7 @@
     <Compile Include="Models\Computer.cs" />
     <Compile Include="Models\Motherboard.cs" />
     <Compile Include="Models\Processor.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -104,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\Computer-PC-Free-PNG-Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\builder-logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

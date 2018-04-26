@@ -16,38 +16,38 @@
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="319" VerticalAlignment="Top" Width="517">
             <TabItem Header="Budowanie">
                 <Grid Background="#FFE5E5E5">
+                    <GroupBox x:Name="groupBox_Copy" Header="Prototyp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7,19,0,0" Height="158" Width="282"/>
+                    <GroupBox x:Name="groupBox" Header="Builder" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,204,0,0" Height="73" Width="279"/>
                     <Button x:Name="AddBtn" Content="Dodaj" HorizontalAlignment="Left" Margin="175,96,0,0" VerticalAlignment="Top" Width="75" Click="AddBtn_Click"/>
                     <ComboBox x:Name="comboCase" Text="TEST" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,45,0,0" Loaded="comboCase_Loaded"/>
                     <ComboBox x:Name="comboMotherboards" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,94,0,0" Loaded="comboMotherboards_Loaded"/>
-                    <ComboBox x:Name="comboProcessor" ItemsSource="{Binding Path=Processors, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,144,0,0" SelectionChanged="comboProcessor_SelectionChanged" Loaded="comboProcessor_Loaded"/>
+                    <ComboBox x:Name="comboProcessor" ItemsSource="{Binding Processors, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,144,0,0" Loaded="comboProcessor_Loaded"/>
                     <ComboBox x:Name="comboBuilder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="21,235,0,0" Loaded="comboBuilder_Loaded"/>
                     <Button x:Name="readSetBtn" Content="Wczytaj zestaw" HorizontalAlignment="Left" Margin="159,233,0,0" VerticalAlignment="Top" Width="105" Height="28"/>
-                    <GroupBox x:Name="groupBox" Header="Builder" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="109,196,0,0" Height="73" Width="282"/>
-                    <GroupBox x:Name="groupBox_Copy" Header="Prototyp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,8,0,0" Height="158" Width="282"/>
-                    <Image x:Name="image" HorizontalAlignment="Left" Height="217" VerticalAlignment="Top" Width="217" Margin="294,-7,0,0" Source="img/Computer-PC-Free-PNG-Image.png"/>
+                    <Image x:Name="image" HorizontalAlignment="Left" Height="217" VerticalAlignment="Top" Width="217" Margin="295,-13,-1,0" Source="img/Computer-PC-Free-PNG-Image.png"/>
+                    <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="352,191,0,0" Source="img/builder-logo.png"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Lista projektów">
+            <TabItem x:Name="ProjectList" Header="Lista projektów" Loaded="ProjectList_Loaded">
                 <Grid Background="#FFE5E5E5">
-                    <ListView HorizontalAlignment="Center" Height="209" Margin="20,10,18,0" VerticalAlignment="Top" Width="473" SelectedItem="{Binding SelectedMeasure}" SelectionMode="Single" SelectionChanged="ListView_SelectionChanged">
+                    <GroupBox x:Name="groupBox_Copy1" Header="Adapter" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,224,0,0" Height="57" Width="215"/>
+                    <GroupBox x:Name="groupBox_Copy2" Header="Prototyp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,224,0,0" Height="57" Width="233"/>
+                    <ListView x:Name="lvComputers" ItemsSource="{Binding Computers}" HorizontalAlignment="Center" Height="209" Margin="20,10,18,0" VerticalAlignment="Top" Width="473" SelectionMode="Single" SelectedItem="{Binding Path=SelectedComputer}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Name}" 
-                                                Header="Nazwa" Width="Auto"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Case}" 
-                                                Header="Obudowa" Width="Auto"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Motherboard}" 
-                                                Header="Płyta główna" Width="Auto"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Processor}" 
-                                                Header="Procesor" Width="Auto"/>
+                                                Header="Obudowa" Width="125"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Motherboard.Name}" 
+                                                Header="Płyta główna" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Motherboard.Processor.Model}" 
+                                                Header="Procesor" Width="120"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="deleteSelectedBtn" Content="Usuń wybrany" HorizontalAlignment="Left" Margin="20,245,0,0" VerticalAlignment="Top" Width="125" Height="29" Click="deleteSelectedBtn_Click"/>
-                    <Button x:Name="downloadXMLBtn" Content="Pobierz XML" HorizontalAlignment="Left" Margin="246,243,0,0" VerticalAlignment="Top" Width="87" Height="29" Click="downloadXMLBtn_Click"/>
-                    <GroupBox x:Name="groupBox_Copy2" Header="Prototyp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,224,0,0" Height="57" Width="160"/>
-                    <GroupBox x:Name="groupBox_Copy1" Header="Adapter" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="198,224,0,0" Height="57" Width="280"/>
-                    <Button x:Name="downloadJSONBtn" Content="Pobierz JSON" HorizontalAlignment="Left" Margin="356,243,0,0" VerticalAlignment="Top" Width="87" Height="29" Click="downloadJSONBtn_Click"/>
+                    <Button x:Name="deleteSelectedBtn" Content="Usuń wybrany" HorizontalAlignment="Left" Margin="28,243,0,0" VerticalAlignment="Top" Width="88" Height="29" Click="deleteSelectedBtn_Click"/>
+                    <Button x:Name="downloadXMLBtn" Content="Pobierz XML" HorizontalAlignment="Left" Margin="284,243,0,0" VerticalAlignment="Top" Width="87" Height="29" Click="downloadXMLBtn_Click"/>
+                    <Button x:Name="downloadJSONBtn" Content="Pobierz JSON" HorizontalAlignment="Left" Margin="386,243,0,0" VerticalAlignment="Top" Width="87" Height="29" Click="downloadJSONBtn_Click"/>
+                    <Button x:Name="copySelectedBtn_Copy" Content="Kopiuj wybrany" HorizontalAlignment="Left" Margin="137,243,0,0" VerticalAlignment="Top" Width="88" Height="29" Click="copySelectedBtn_Copy_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="O Autorze">
