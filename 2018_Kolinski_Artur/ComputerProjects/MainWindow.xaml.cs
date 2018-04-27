@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using ComputerProjects.Adapters;
 using ComputerProjects.Models;
 
 namespace ComputerProjects
@@ -23,24 +23,25 @@ namespace ComputerProjects
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
-        {
-            
+        {          
             var processor = new Processor{ Model = comboProcessor.Text };
             var motherboard = new Motherboard{Name = comboMotherboards.Text, Processor = processor};
             var computer = new Computer{Case = comboCase.Text, Motherboard = motherboard};
             Computers.Add(computer);
             
-            //MessageBox.Show("Dodany koputer: \n Obudowa: " + comboCase.Text + ",\n Płyta gł.: " + comboMotherboards.Text + ", \n Procesor: "+ comboProcessor.Text);
+            MessageBox.Show("Dodany komputer: \nObudowa: " + comboCase.Text + ",\nPłyta gł.: " + comboMotherboards.Text + ", \nProcesor: "+ comboProcessor.Text);
         }
 
         private void downloadJSONBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Adapter adapter = new Adapter(new JsonAdapter());
+            MessageBox.Show(adapter.Request(Computers));
         }
 
         private void downloadXMLBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Adapter adapter = new Adapter(new XmlAdapter());
+            MessageBox.Show(adapter.Request(Computers));
         }
 
         private void comboProcessor_Loaded(object sender, RoutedEventArgs e)
@@ -79,9 +80,9 @@ namespace ComputerProjects
         private void comboBuilder_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> builds = new List<string>();
-            builds.Add("First build");
-            builds.Add("Second");
-            builds.Add("Third");
+            builds.Add("Zastaw 1 [i9]");
+            builds.Add("Zastaw 2 [i7]");
+            builds.Add("Zastaw 3 [i3]");
             var combo = sender as ComboBox;
             combo.ItemsSource = builds;
             combo.SelectedIndex = 0;
@@ -123,6 +124,39 @@ namespace ComputerProjects
             {
                 Debug.WriteLine(ex);
                 MessageBox.Show("Wystąpił błąd podczas kopiowania!");
+            }
+        }
+
+        private void readSetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var creator = new ComputerCreator();
+                switch (comboBuilder.Text)
+                {
+                    case "Zastaw 1 [i9]":
+                        var computer = new Computer1ForBuilder();
+                        creator.CreateComputer(computer);
+                        Computers.Add(computer.GetComputer());
+                        break;
+                    case "Zastaw 2 [i7]":
+                        var computer2 = new Computer2ForBuilder();
+                        creator.CreateComputer(computer2);
+                        Computers.Add(computer2.GetComputer());
+                        break;
+                    case "Zastaw 3 [i3]":
+                        var computer3 = new Computer3ForBuilder();
+                        creator.CreateComputer(computer3);
+                        Computers.Add(computer3.GetComputer());
+                        break;
+                }
+                lvComputers.ItemsSource = Computers;
+                MessageBox.Show("Poprawnie zbudowano komputer z zestawu:\n" + comboBuilder.Text);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                MessageBox.Show("Wystąpił błąd podczas budowania!");
             }
         }
     }

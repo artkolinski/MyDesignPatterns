@@ -7,7 +7,6 @@ namespace ComputerProjects.Models
     [Serializable]
     public class Computer : ComputerPrototype
     {
-        public Computer() { }
         public string Case { get; set; }
         public Motherboard Motherboard { get; set; }
         public override Computer DeepClone()
